@@ -48,5 +48,3 @@ def getAllTeamData():
         teamData = translateTeamOriginData(teamOriginData)
         teamDataArray.append(teamData)
     return teamDataArray
-
-teamDataArray = getAllTeamData()

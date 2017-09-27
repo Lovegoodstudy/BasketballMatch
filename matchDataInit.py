@@ -50,10 +50,3 @@ def getAllMatchData():
         matchData = translateMatchOriginData(matchOriginData)
         matchDataArray.append(matchData)
     return matchDataArray
-
-matchDataArray = getAllMatchData()
-
-#get some random data from array
-def getMatchData(number):
-    slice = random.sample(matchDataArray, number)
-    return slice
