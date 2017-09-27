@@ -3,7 +3,9 @@
 
 import unittest
 import matchDataInit
+import teamDataInit
 
+#test for matchDataInit.py
 class TestMatchDataInit(unittest.TestCase):
 
     def test_getWinAndLose(self):
@@ -15,6 +17,14 @@ class TestMatchDataInit(unittest.TestCase):
     def test_getMatchData(self):
         self.assertEqual(len(matchDataInit.matchDataArray), 7084)
         self.assertEqual(len(matchDataInit.getMatchData(100)), 100)
+
+class TestTeamDataInit(unittest.TestCase):
+
+    def test_translateTeamOriginData(self):
+        self.assertEqual(teamDataInit.translateTeamOriginData(['207', '15', '19', '0', '6.5', '62.50%', '0.5', '0.8', '', '0', '0', '62.50%', '0.3', '0.4', '1.6', '0.4', '1.2', '0.2', '0.1', '0.3', '0.2', '0.6', '1.3']), ['207', '15', '0', '19', '6.5', '0.5', '0.8', '0', '0', '0.3', '0.4', '1.6', '0.4', '1.2', '0.2', '0.1', '0.3', '0.2', '0.6', '1.3'])
+
+    def test_getTeamData(self):
+        self.assertEqual(len(teamDataInit.teamDataArray), 3732)
 
 if __name__ == '__main__':
     unittest.main()
