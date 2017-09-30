@@ -2,10 +2,6 @@
 # -*- coding: utf-8 -*-
 
 import csv
-import random
-
-csvFile = open("data/matchDataTrain.csv", "r")
-reader = csv.reader(csvFile)
 
 #get win and lose from string
 def getWinAndLose(str):
@@ -24,29 +20,54 @@ def getWinAndLose(str):
     return win, lose
 
 #translate origin data from csv to array data
-def translateMatchOriginData(matchOriginData):
-    matchData = []
-    matchData.append(matchOriginData[0])  # AwayTeam Name
-    matchData.append(matchOriginData[1])  # AtHomeTeam Name
+def translateMatchOriginDataFactor(matchOriginData):
+    matchDataFactor = []
+    matchDataFactor.append(matchOriginData[0])  # AwayTeam Name
+    matchDataFactor.append(matchOriginData[1])  # AtHomeTeam Name
 
     win, lose = getWinAndLose(matchOriginData[2])  # AwayTeam Match Data
-    matchData.append(win)
-    matchData.append(lose)
+    matchDataFactor.append(win)
+    matchDataFactor.append(lose)
 
     win, lose = getWinAndLose(matchOriginData[3])  # AtHomeTeam Match Data
-    matchData.append(win)
-    matchData.append(lose)
+    matchDataFactor.append(win)
+    matchDataFactor.append(lose)
 
-    matchData.append(matchOriginData[4].split(':')[0])  # AwayTeam Result
-    matchData.append(matchOriginData[4].split(':')[1])  # AtHomeTeam Result
+    return matchDataFactor
 
-    return matchData
+def translateOriginMatchDataTrain(originMatchDataTrain):
+    matchDataTrain = translateMatchOriginDataFactor(originMatchDataTrain)
+    matchDataTrain.append(originMatchDataTrain[4].split(':')[0])  # AwayTeam Result
+    matchDataTrain.append(originMatchDataTrain[4].split(':')[1])  # AtHomeTeam Result
+    return matchDataTrain
+
+def translateOriginMatchDataTest(originMatchDataTest):
+    matchDataTest = translateMatchOriginDataFactor(originMatchDataTest)
+    return matchDataTest
 
 #get all data into array
-def getAllMatchData():
-    matchDataArray = []
+def getMatchDataTrainList():
+    csvFile = open("data/matchDataTrain.csv", "r")
+    reader = csv.reader(csvFile)
+
+    matchDataTrainList = []
     reader.next()  #Skip Line 1
-    for matchOriginData in reader:
-        matchData = translateMatchOriginData(matchOriginData)
-        matchDataArray.append(matchData)
-    return matchDataArray
+    for originMatchDataTrain in reader:
+        matchData = translateOriginMatchDataTrain(originMatchDataTrain)
+        matchDataTrainList.append(matchData)
+
+    csvFile.close()
+    return matchDataTrainList
+
+def getMatchDataTest():
+    csvFile = open("data/matchDataTest.csv", "r")
+    reader = csv.reader(csvFile)
+
+    matchDataTestList = []
+    reader.next()  # Skip Line 1
+    for originMatchDataTest in reader:
+        matchData = translateOriginMatchDataTest(originMatchDataTest)
+        matchDataTestList.append(matchData)
+
+    csvFile.close()
+    return matchDataTestList
