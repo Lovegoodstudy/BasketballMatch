@@ -59,7 +59,7 @@ def getMatchDataTrainList():
     csvFile.close()
     return matchDataTrainList
 
-def getMatchDataTest():
+def getMatchDataTestList():
     csvFile = open("data/matchDataTest.csv", "r")
     reader = csv.reader(csvFile)
 
